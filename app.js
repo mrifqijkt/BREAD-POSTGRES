@@ -3,8 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const { Pool } = require('pg')
+ 
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'postgres',
+  password: '12345',
+  port: 5432,
+})
 
-var indexRouter = require('./routes/index');
+pool.query('select * from bread', (err, bread)=>{
+})
+
+var indexRouter = require('./routes/index')(pool);
 var usersRouter = require('./routes/users');
 
 var app = express();
