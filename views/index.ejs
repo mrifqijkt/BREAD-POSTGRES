@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BREAD (Browse,Read,Edit,Add,Delete)</title>
-  <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 
@@ -82,12 +82,10 @@
           </select>
         </div>
       </div>
-      <br>
       <button type="submit" class="btn btn-primary">Search</button>
       <a href="/" class="btn btn-primary">Reset</a>
   </div>
   </form>
-  <br>
   <table class="table table-success table-striped" border="1" id="customers">
     <tr>
       <th>ID</th>
@@ -113,7 +111,7 @@
           <%= item.Float %>
         </td>
         <td>
-          <%= moment(item.Date).format('DD MMM YYYY') %>
+          <%= moment(item.Date).format('DD-MMM-YYYY') %>
         </td>
         <td>
           <%= item.Boolean %>
@@ -124,8 +122,24 @@
       </tr>
       <% }) %>
   </table>
-  <br>
   <a href="/Add" class="btn btn-primary" type="submit">Add</a>
+  <br>
+  <br>
+  <div class="pagination">
+    <% if (page> 1) { %>
+      <a href="<%= url.replace(`page=${page}`, `page=${page-1}`) %>">Previous</a>
+      <% } %>
+
+        <% for (let i=1; i <=pages; i++) { %>
+          <a class="<%= page == i ? 'active' : '' %>" href="<%= url.replace(`page=${page}`, `page=${i}`) %>">
+            <%= i %>
+          </a>
+          <% } %>
+
+            <% if (page < pages) { %>
+              <a href="<%= url.replace(`page=${parseInt(page)}`, `page=${parseInt(page)+1}`) %>">Next</a>
+              <% } %>
+  </div>
 </body>
 
 </html>
