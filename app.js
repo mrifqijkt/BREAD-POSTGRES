@@ -13,8 +13,8 @@ const pool = new Pool({
   port: 5432,
 })
 
-pool.query('select * from bread', (err, bread)=>{
-})
+// pool.query('select * from bread', (err, bread)=>{
+// })
 
 var indexRouter = require('./routes/index')(pool);
 var usersRouter = require('./routes/users');
