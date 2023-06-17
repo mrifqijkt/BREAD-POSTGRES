@@ -53,98 +53,29 @@ module.exports = function (db) {
 
     db.query(sql, params, (err, bread) => {
       const pages = Math.ceil(bread.rows[0].count / limit)
+
+      const sort = req.query.sort || 'id' // Default sort column is 'id'
+      const order = req.query.order || 'asc' // Default sort order is 'asc'
+
+
       sql = `SELECT * FROM bread`
       if (params.length > 0) {
         sql += ` WHERE ${sqlsearch.join(' AND ')}`
       }
 
-      const orderBy = req.query.orderBy || 'asc'
-      const sortBy = req.query.sortBy || 'id'
+      sql += ` ORDER BY ${sort} ${order}` // Add sorting to the SQL query
 
-      if (orderBy == 'asc') {
-        orderBy = 'asc'
-      } else {
-        orderBy = 'desc'
-      }
-
-      sql += ` ORDER BY ${sortBy} ${orderBy}`
       params.push(limit, offset)
       sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`
-
       db.query(sql, params, (err, bread) => {
         if (err) {
           console.error(err)
         } else {
-          res.render('index', { bread: bread.rows, pages, page, offset, query: req.query, url, moment, sortBy: sortBy, orderBy: orderBy })
+          res.render('index', { bread: bread.rows, pages, page, offset, query: req.query, url, moment, sort: sort, order: order })
         }
       })
     })
   });
-
-
-  // router.get('/', (req, res) => {
-  //   const url = req.url == '/' ? '/?page=1' : req.url
-  //   const page = req.query.page || 1
-  //   const limit = 3
-  //   const offset = (page - 1) * limit
-
-  //   const params = []
-  //   const sqlsearch = []
-
-  //   if (req.query.id && req.query.checkboxid) {
-  //     params.push(req.query.id)
-  //     sqlsearch.push(`id = $${params.length}`)
-  //   }
-
-  //   if (req.query.String && req.query.checkboxString) {
-  //     params.push(`%${req.query.String}%`);
-  //     sqlsearch.push(`string ILIKE $${params.length}`)
-  //   }
-
-  //   if (req.query.Integer && req.query.checkboxInteger) {
-  //     params.push(req.query.Integer)
-  //     sqlsearch.push(`integer = $${params.length}`)
-  //   }
-
-  //   if (req.query.Float && req.query.checkboxFloat) {
-  //     params.push(req.query.Float)
-  //     sqlsearch.push(`float = $${params.length}`)
-  //   }
-
-  //   if (req.query.startDate && req.query.endDate && req.query.checkboxDate) {
-  //     params.push(req.query.startDate, req.query.endDate)
-  //     sqlsearch.push(`date BETWEEN $${params.length - 1} AND $${params.length}`)
-  //   }
-
-  //   if (req.query.Boolean && req.query.checkboxBoolean) {
-  //     params.push(req.query.Boolean)
-  //     sqlsearch.push(`boolean = $${params.length}`)
-  //   }
-
-  //   let sql = 'SELECT COUNT(*) AS count FROM bread'
-  //   if (params.length > 0) {
-  //     sql += ` WHERE ${sqlsearch.join(' AND ')}`
-  //   }
-
-  //   db.query(sql, params, (err, bread) => {
-  //     const pages = Math.ceil(bread.rows[0].count / limit)
-
-  //     sql = `SELECT * FROM bread`
-  //     if (params.length > 0) {
-  //       sql += ` WHERE ${sqlsearch.join(' AND ')}`
-  //     }
-
-  //     params.push(limit, offset)
-  //     sql += ` LIMIT $${params.length - 1} OFFSET $${params.length}`
-  //     db.query(sql, params, (err, bread) => {
-  //       if (err) {
-  //         console.error(err)
-  //       } else {
-  //         res.render('index', { bread: bread.rows, pages, page, offset, query: req.query, url, moment })
-  //       }
-  //     })
-  //   })
-  // })
 
   router.get('/Add', (req, res) => {
     res.render('add', { item: {}, moment })

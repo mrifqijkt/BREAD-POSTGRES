@@ -89,23 +89,11 @@
   </form>
   <table class="table table-success table-striped" border="1" id="customers">
     <tr>
-      <th> ID <a href="?sort=id&order=<%= query.order === 'asc' ? 'desc' : 'asc' %>">
-
-        <% if (query.sortBy==='id' ) { %>
-          <% if (query.orderBy==='asc' ) { %>
-            <i class="fa fa-sort-asc"></i>
-            <% } else { %>
-              <i class="fa fa-sort-desc"></i>
-              <% } %>
-                <% } else { %>
-                  <i class="fa fa-sort"></i>
-                  <% } %>
-      </a></th>
       <th>
-      <th> String <a href="?sort=String&order=<%= query.order === 'asc' ? 'desc' : 'asc' %>">
-
-          <% if (query.sortBy==='String' ) { %>
-            <% if (query.orderBy==='asc' ) { %>
+        ID
+        <a href="?sort=id&order=<%= query.order === 'asc' && query.sort === 'id' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='id' ) { %>
+            <% if (query.order==='asc' ) { %>
               <i class="fa fa-sort-asc"></i>
               <% } else { %>
                 <i class="fa fa-sort-desc"></i>
@@ -113,11 +101,83 @@
                   <% } else { %>
                     <i class="fa fa-sort"></i>
                     <% } %>
-        </a></th>
-      <th>Integer</th>
-      <th>Float</th>
-      <th>Date</th>
-      <th>Boolean</th>
+        </a>
+      </th>
+      <th>
+        String
+        <a
+          href="?sort=String&order=<%= query.order === 'asc' && query.sort === 'String' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='String' ) { %>
+            <% if (query.order==='asc' ) { %>
+              <i class="fa fa-sort-asc"></i>
+              <% } else { %>
+                <i class="fa fa-sort-desc"></i>
+                <% } %>
+                  <% } else { %>
+                    <i class="fa fa-sort"></i>
+                    <% } %>
+        </a>
+      </th>
+      <th>
+        Integer
+        <a
+          href="?sort=Integer&order=<%= query.order === 'asc' && query.sort === 'Integer' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='Integer' ) { %>
+            <% if (query.order==='asc' ) { %>
+              <i class="fa fa-sort-asc"></i>
+              <% } else { %>
+                <i class="fa fa-sort-desc"></i>
+                <% } %>
+                  <% } else { %>
+                    <i class="fa fa-sort"></i>
+                    <% } %>
+        </a>
+      </th>
+      <th>
+        Float
+        <a
+          href="?sort=Float&order=<%= query.order === 'asc' && query.sort === 'Float' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='Float' ) { %>
+            <% if (query.order==='asc' ) { %>
+              <i class="fa fa-sort-asc"></i>
+              <% } else { %>
+                <i class="fa fa-sort-desc"></i>
+                <% } %>
+                  <% } else { %>
+                    <i class="fa fa-sort"></i>
+                    <% } %>
+        </a>
+      </th>
+      <th>
+        Date
+        <a
+          href="?sort=Date&order=<%= query.order === 'asc' && query.sort === 'Date' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='Date' ) { %>
+            <% if (query.order==='asc' ) { %>
+              <i class="fa fa-sort-asc"></i>
+              <% } else { %>
+                <i class="fa fa-sort-desc"></i>
+                <% } %>
+                  <% } else { %>
+                    <i class="fa fa-sort"></i>
+                    <% } %>
+        </a>
+      </th>
+      <th>
+        Boolean
+        <a
+          href="?sort=Boolean&order=<%= query.order === 'asc' && query.sort === 'Boolean' ? 'desc' : 'asc' %>&page=<%= page %>">
+          <% if (query.sort==='Boolean' ) { %>
+            <% if (query.order==='asc' ) { %>
+              <i class="fa fa-sort-asc"></i>
+              <% } else { %>
+                <i class="fa fa-sort-desc"></i>
+                <% } %>
+                  <% } else { %>
+                    <i class="fa fa-sort"></i>
+                    <% } %>
+        </a>
+      </th>
       <th>Actions</th>
     </tr>
     <% bread.forEach((item, index)=> { %>
